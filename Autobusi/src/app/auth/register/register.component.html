@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-grup">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" class="form-control"  name="email" formControlName="email">
+            </div>
+
+            <div class="form-grup" formGroupName="passwordGroup">
+                <label for="password">Sifra</label>
+                <input type="password" id="password" class="form-control"  name="password" formControlName="password">
+
+                <label for="confirmPassword">Ponovite sifru</label>
+                <input type="password" id="confirmPassword" class="form-control"  name="confirmPassword" formControlName="confirmPassword">
+            </div>
+
+            <div class="form-grup">
+                <label for="ime">Ime</label>
+                <input type="text" id="ime" class="form-control"  name="ime" formControlName="ime">
+            </div>
+
+            <div class="form-grup">
+                <label for="prezime">Prezime</label>
+                <input type="text" id="prezime" class="form-control"  name="prezime" formControlName="prezime">
+            </div>
+
+            <div class="form-grup">
+                <label for="datRodj">Datum rodjenja</label>
+                <input type="date" id="datRodj" class="form-control"  name="datRodj" formControlName="datRodj">
+            </div>
+
+            <div class="form-grup">
+                <label for="adresa">Adresa</label>
+                <input type="text" id="adresa" class="form-control"  name="adresa" formControlName="adresa">
+            </div>
+            
+            <div class="form-grup">
+                <label for="tipKorisnika">TipKorisnika:</label>
+                <select class="form-control" formControlName="tipKorisnika" name="tipKorisnika" id="tipKorisnika" (change)="onTipChange($event)" #tipK>
+                        <option *ngFor="let tip of tipovi" [ngValue]="tip">
+                            {{tip | uppercase}}
+                        </option>
+                      </select>
+            </div>
+
+            <div class="form-grup" *ngIf="dokument">
+                <label for="url">Dokument</label>
+                <input type="file" id="url" class="form-control"  name="url" formControlName="url" (change)="onFileSelected($event)" accept="image/*">
+                <div class="image-preview mb-3" *ngIf="previewUrl">
+                    <img [src]="previewUrl" height="300" />                 
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="!registerForm.valid">Registracija</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
+                <span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+            </button>
+            <a routerLink="/" class="navbar-brand">BUS</a>
+        </div>
+
+        <div class="navbar navbar-collapse" [class.collapsed]="collapsed" (window:resize)="collapsed = true">
+            <ul class="nav navbar-nav">
+                <li *ngIf="!loggedIn" routerLinkActive="active"><a routerLink="/login" routerLinkActive="router-link-active">Prijava</a></li>
+                <li *ngIf="!loggedIn" routerLinkActive="active"><a routerLink="/register">Registracija</a></li>
+                <li *ngIf="loggedIn" routerLinkActive="active"><a routerLink="/account">Profil</a></li>
+                <li routerLinkActive="active"><a routerLink="/linije">Linije</a></li>
+                <li routerLinkActive="active"><a routerLink="/redvoznje">Red Voznje</a></li>
+                <li routerLinkActive="active"><a routerLink="/cenovnik">Cenovnik</a></li>
+                <li *ngIf="kontroler" routerLinkActive="active"><a routerLink="/kontrola">Kontrola karata</a></li>
+                <li *ngIf="kontroler" routerLinkActive="active"><a routerLink="/verifikacija">Verifikacija korisnika</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" *ngIf="loggedIn">
+                <li>
+                  <a style="cursor: pointer;" (click)="onLogout()">Odjava</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

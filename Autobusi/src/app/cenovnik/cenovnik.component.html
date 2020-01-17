@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-xs-12">
+        <p *ngIf="cenovnik">Cenovnik vazi od:{{cenovnik.VaziOd | date}} do:{{cenovnik.VaziDo | date}}   </p>
+        <form [formGroup]="kupovinaForm" (ngSubmit)="onSubmit()">
+            <div class="col-xs-6">
+                <div class="form-grup">
+                    <label for="vrstaKarte">VrstaKarte:</label>
+                    <select class="form-control" formControlName="vrstaKarte" name="vrstaKarte" id="vrstaKarte" (change)="calculate()">
+                        <option *ngFor="let vrsta of vrste" [ngValue]="vrsta">
+                            {{vrsta | uppercase}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-grup">
+                    <label for="tipKorisnika">TipKorisnika:</label>
+                    <select class="form-control" formControlName="tipKorisnika" name="tipKorisnika" id="tipKorisnika" (change)="calculate()">
+                        <option *ngFor="let tip of tipovi" [ngValue]="tip">
+                            {{tip | uppercase}}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <h3>Cena karte je: {{cena}} rsd </h3> <button type="submit" class="btn btn-primary" [disabled]="!kupovinaForm.valid">KupiKartu</button>
+        </form>
+    </div>
+    <div class="col-xs-12" *ngIf="user != null && user.VrstaNaloga === 'Admin' && !adminEdit">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-primary" style="float: right;" (click)="onAdminEdit(true)">Izmeni trenutni</button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-primary" (click)="onAdminEdit(false)">Napravi novi</button>
+        </div>
+    </div>
+    <form [formGroup]="cenovnikForm" (ngSubmit)="onSubmitCenovnik()" *ngIf="adminEdit">
+        <div class="form-grup col-xs-6">
+            <label for="vaziOd">Vazi od:</label>
+            <input type="date" id="vaziOd" class="form-control"  name="vaziOd" formControlName="vaziOd">
+        </div>
+        <div class="form-grup col-xs-6">
+            <label for="vaziDo">Vazi do:</label>
+            <input type="date" id="vaziDo" class="form-control"  name="vaziDo" formControlName="vaziDo">
+        </div>
+        <div class="form-grup col-xs-3">
+            <label for="cenaVr">Cena vremenske:</label>
+            <input type="number" id="cenaVr" class="form-control"  name="cenaVr" formControlName="cenaVr">
+        </div>
+        <div class="form-grup col-xs-3">
+            <label for="cenaDnevne">Cena dnevne:</label>
+            <input type="number" id="cenaDnevne" class="form-control"  name="cenaDnevne" formControlName="cenaDnevne">
+        </div>
+        <div class="form-grup col-xs-3">
+            <label for="cenaMes">Cena mesecne:</label>
+            <input type="number" id="cenaMes" class="form-control"  name="cenaMes" formControlName="cenaMes">
+        </div>
+        <div class="form-grup col-xs-3">
+            <label for="cenaGod">Cena godisnje:</label>
+            <input type="number" id="cenaGod" class="form-control"  name="cenaGod" formControlName="cenaGod">
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-primary" type="submit" style="float: right; margin-top: 10px;">Primeni</button>
+        </div>
+        <div class="col-xs-6">
+            <button class="btn btn-primary" type="button" (click)="onCancel()" style="margin-top: 10px;">Odustani</button>
+        </div>
+    </form>
+</div>

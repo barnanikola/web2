@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form [formGroup]="redVoznjeForm" (ngSubmit)="onSubmit()">
+            <div class="col-xs-4 form-group">
+                <label for="dan">Dan:</label>
+                <select class="form-control" formControlName="dan" name="dan" id="dan">
+                    <option *ngFor="let dan of dani" [ngValue]="dan">
+                        {{dan | uppercase}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-4 form-group">
+                <label for="tipLinije">Tip linije:</label>
+                <select class="form-control" formControlName="tipLinije" name="tipLinije" id="tipLinije" (change)="onTipChange($event)">
+                    <option *ngFor="let tip of tipovi" [ngValue]="tip">
+                        {{tip | uppercase}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-2 form-group">
+                <label for="linija">Linija:</label>
+                <select class="form-control" formControlName="linija" name="linija" id="linija">
+                    <option *ngFor="let linija of linije" [ngValue]="linija">
+                        {{linija.Broj}}
+                    </option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="margin-top: 25px;">Prikazi red voznje</button>
+        </form>
+    </div>
+
+    <table *ngIf="showTable">
+        <tr>
+            <th>Vreme polaska</th>
+        </tr>
+        <tr *ngFor="let polazak of polasci">
+            <td>{{polazak}}</td>
+        </tr>
+    </table>
+</div>
+<div class="row" *ngIf="admin">
+    <div class="col-xs-12">
+        <form [formGroup]="polazakForm" (ngSubmit)="addPolazak()">
+            <div class="col-xs-1 form-group">
+                <label for="id">Id linije:</label>
+                <input type="number" id="id" class="form-control"  name="id" formControlName="id">
+            </div>
+
+            <div class="col-xs-3 form-group">
+                <label for="danPolazak">Dan:</label>
+                <select class="form-control" formControlName="danPolazak" name="danPolazak" id="danPolazak">
+                    <option *ngFor="let dan of dani" [ngValue]="dan">
+                        {{dan | uppercase}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-xs-4 form-group">
+                <label for="polazak">Polazak:</label>
+                <input type="text" id="polazak" class="form-control"  name="polazak" formControlName="polazak">
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="margin-top: 25px;">Dodaj polazak</button>
+        </form>
+    </div>
+</div>
+
+<div class="row" *ngIf="admin">
+    <div class="col-xs-12">
+        <form [formGroup]="obrisiPolazakForm" (ngSubmit)="obisiPolazak()">
+            <div class="col-xs-1 form-group">
+                <label for="idPol">Id:</label>
+                <input type="number" id="idPol" class="form-control"  name="idPol" formControlName="idPol">
+            </div>
+
+            <button class="btn btn-primary" type="submit" style="margin-top: 25px;">Obrisi polazak</button>
+        </form>
+    </div>
+</div>

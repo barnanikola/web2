@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="row">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-group form-inline">
+                Unesite ID karte za proveru: <input id='id' name='id' class="form-control ml-2" type="number" ngModel required>
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Provera validnosti</button>
+            </div>
+        </form>
+        <h3>{{ rezultatProvere }}</h3>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email korisnika</th>
+                <th>Datum kupovine</th>
+                <th>Tip karte</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let karta of karte">
+                <td>{{karta.Id}}</td>
+                <td>{{karta.EmailKorisnika}}</td>
+                <td>{{karta.DatumIzdavanja | date: "short"}}</td>
+                <td>{{karta.TipKarte | uppercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

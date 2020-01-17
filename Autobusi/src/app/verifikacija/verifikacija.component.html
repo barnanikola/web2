@@ -1,0 +1,66 @@
+<form>
+    <div class="form-group form-inline">
+        Pretraga korisnika: <input (ngModelChange)="onKey($event)" class="form-control ml-2" type="text" [formControl]="filter"/>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>E-mail</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Tip korisnika</th>
+            <th>Status korisnika</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let korisnik of korisniciPrikaz; index as i" (click)="onSellectedUser(korisnik.Email)">
+            <td>{{ korisnik.Email }}</td>
+            <td>{{ korisnik.Ime }}</td>
+            <td>{{ korisnik.Prezime }}</td>
+            <td>{{ korisnik.TipKorisnika }}</td>
+            <td>{{ korisnik.Status }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="container" *ngIf="selektovanKorisnik">
+    <div class="col-xs-4">
+        <h4>Email: {{selektovanKorisnik.Email}}</h4>
+    </div>
+    <div class="col-xs-4">
+        <h4>Ime: {{selektovanKorisnik.Ime}}</h4>
+    </div>
+    <div class="col-xs-4">
+        <h4>Prezime: {{selektovanKorisnik.Prezime}}</h4>
+    </div>
+    <div class="col-xs-4">
+        <h4>Datum rodjenja: {{selektovanKorisnik.DatRodj | date}}</h4>
+    </div>
+    <div class="col-xs-4">
+        <h4>Adresa: {{selektovanKorisnik.Adresa}}</h4>
+    </div>
+    <div class="col-xs-4">
+        <h4>Tip korisnika: {{selektovanKorisnik.TipKorisnika | uppercase}}</h4>
+    </div>
+
+    <div class="col-xs-6" *ngIf="selektovanKorisnik.TipKorisnika !== 'obican'">
+        <div class="image-preview mb-3">
+            <img [src]="safeUrl" height="300" width="500" />                 
+        </div>
+    </div>
+    <div class="col-xs-6">
+        <form [formGroup]="verifikacijaForm" (ngSubmit)="onSubmit()">
+            <div class="form-grup">
+                <label for="statusZahteva">Status zahteva:</label>
+                <select class="form-control" formControlName="statusZahteva" name="statusZahteva" id="statusZahteva">
+                    <option *ngFor="let status of statusi" [ngValue]="status">
+                        {{status | uppercase}}
+                    </option>
+                </select>
+            </div>
+            <button class="btn btn-primary" type="submit" style="margin-top: 10px;">Promeni status</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="row">
+    <p *ngIf="user">Status verifikacije vaseg naloga: {{user.Status | uppercase}}</p>
+    <form [formGroup]="accountDataForm" (ngSubmit)="onSubmit()">
+        <div class="col-xs-4 FormGroup">
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" class="form-control"  name="email" formControlName="email">
+
+            <label for="ime">Ime:</label>
+            <input type="ime" id="ime" class="form-control"  name="ime" formControlName="ime">
+
+            <label for="prezime">Prezime</label>
+            <input type="prezime" id="prezime" class="form-control"  name="prezime" formControlName="prezime">
+        
+            <label for="datRodj">Datum rodjenja:</label>
+            <input type="date" id="datRodj" class="form-control"  name="datRodj" formControlName="datRodj">
+
+            <label for="adresa">Adresa:</label>
+            <input type="adresa" id="adresa" class="form-control"  name="adresa" formControlName="adresa">
+            
+            <label for="tipKorisnika">TipKorisnika:</label>
+            <select class="form-control" formControlName="tipKorisnika" name="tipKorisnika" id="tipKorisnika">
+                <option *ngFor="let tip of tipovi" [ngValue]="tip">
+                    {{tip | uppercase}}
+                </option>
+            </select>
+
+            <button class="btn btn-primary" style="margin-top: 40px; margin-right: 10px;" type="submit" [disabled]="!accountDataForm.valid">Promeni podatke</button>
+        </div>
+    </form>
+    <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+        <div class="col-xs-4 form-group" formGroupName="passwordGroup">
+            <label for="oldPassword">Stara sifra:</label>
+            <input type="password" id="oldPassword" class="form-control"  name="oldPassword" formControlName="oldPassword">
+
+            <label for="newPassword">Nova sifra:</label>
+            <input type="password" id="newPassword" class="form-control"  name="newPassword" formControlName="newPassword">
+    
+            <label for="confirmNewPassword">Ponovite novu sifru:</label>
+            <input type="password" id="confirmNewPassword" class="form-control"  name="confirmNewPassword" formControlName="confirmNewPassword">
+            <button class="btn btn-primary change-pass-btn" type="submit" [disabled]="!changePasswordForm.valid">Promeni sifru</button>
+        </div>
+    </form>
+    <form [formGroup]="uploadImageForm" (ngSubmit)="uploadImage()">
+        <div class="col-xs-4 form-group">
+            <label for="url">Dokument</label>
+            <input type="file" id="url" class="form-control"  name="url" formControlName="url" (change)="onFileSelected($event)" accept="image/*">
+            <div class="image-preview mb-3" *ngIf="previewUrl">
+                <img [src]="previewUrl" height="300" />                 
+            </div>
+            <div class="image-preview mb-3" *ngIf="safeUrl">
+                <img [src]="safeUrl" height="300" />                 
+            </div>
+            <button class="btn btn-primary" type="submit" [disabled]="!uploadImageForm.valid">Posalji sliku</button>
+        </div>
+    </form>      
+</div>

@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-xs-12">
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+            <div class="form-groupe">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" ngModel name="email" required email>
+            </div>
+            <div class="form-group">
+                <label for="password">Lozinka</label>
+                <input type="password" id="password" class="form-control" ngModel name="password" required minlength="6">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Prijava</button>
+                
+                <a style="margin-left: 10px;" routerLink="/register">Nemate nalog? Registrujte se</a>
+            </div>
+        </form>
+    </div>
+</div>

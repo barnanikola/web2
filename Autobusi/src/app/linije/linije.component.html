@@ -1,0 +1,99 @@
+<div #map id="googleMap" style="width:100%;height:400px"></div>
+<hr>
+<div class="row" *ngIf="admin">
+    <div class="col-xs-12">
+        <form [formGroup]="stanicaForm" (ngSubmit)="stanicaSubmit()">
+            <div class="col-xs-4 form-group">
+                <label for="naziv">Naziv stanice:</label>
+                <input type="text" id="naziv" name="naziv" formControlName="naziv">
+            </div>
+            <div class="col-xs-4 form-group">
+                <label for="adresa">Adresa:</label>
+                <input type="text" id="adresa" name="adresa" formControlName="adresa">
+            </div>
+
+            <div class="col-xs-2 form-group">
+                <label for="brojLinije">Id linije:</label>
+                <input type="number" id="brojLinije" name="brojLinije" formControlName="brojLinije">
+            </div>
+
+            <div class="col-xs-2">
+                <button type="button" (click)="onAddLinija()" class="btn btn-primary">Dodaj liniju ovoj stanici</button>
+            </div>
+
+            <div class="col-xs-3 form-group">
+                <label for="lat">Lat:</label>
+                <input type="number" id="lat" name="lat" formControlName="lat">
+            </div>
+            <div class="col-xs-3 form-group">
+                <label for="lng">Lng:</label>
+                <input type="number" id="lng" name="lng" formControlName="lng">
+            </div>
+            
+            <div class="col-xs-3 form-group">
+                <label for="idStaniceEdit">Id stanice za izmenu:</label>
+                <input type="number" id="idStaniceEdit" name="idStaniceEdit" formControlName="idStaniceEdit">
+            </div>
+            
+            <div class="col-xs-3">
+                <button type="submit" class="btn btn-primary" [disabled]="!stanicaForm.valid">Dodaj stanicu</button>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row" *ngIf="admin">
+    <div class="col-xs-12">
+        <form [formGroup]="linijaForm" (ngSubmit)="linijaSubmit()">
+            <div class="col-xs-4 form-group">
+                <label for="broj">Broj linije:</label>
+                <input type="number" id="broj" name="broj" formControlName="broj">
+            </div>
+            <div class="col-xs-4 form-group">
+                <label for="boja">Boja linije:</label>
+                <input type="color" id="boja" name="boja" formControlName="boja">
+            </div>
+            <div class="col-xs-2 form-group">
+                <label for="idStanice">ID stanice:</label>
+                <input type="number" id="idStanice" name="idStanice" formControlName="idStanice">
+            </div>
+            <div class="col-xs-2 form-group">
+                <button type="button" class="btn btn-primary" style="margin-top: 20px;" (click)="onAddStanica()">Dodaj stanicu ovoj liniji</button>
+            </div>
+            <div class="col-xs-3 form-group">
+                <label for="tipLinije">Tip linije:</label>
+                <select class="form-control" formControlName="tipLinije" name="tipLinije" id="tipLinije">
+                    <option *ngFor="let tip of tipovi" [ngValue]="tip">
+                        {{tip | uppercase}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-xs-4 form-group" style="margin-top: 20px;">
+                <label for="idLinije">Id linije za izmenu:</label>
+                <input type="number" id="idLinije" name="idLinije" formControlName="idLinije">
+            </div>
+            <div class="col-xs-3">
+                <button class="btn btn-primary" type="submit" style="margin-top: 15px" [disabled]="!linijaForm.valid">Dodaj liniju</button>
+            </div>
+        </form>
+    </div>
+</div>
+<hr>
+<div class="row" *ngIf="admin">
+    <div class="col-xs-12">
+        <form #fStanica="ngForm" (ngSubmit)="deleteStanica(fStanica)">
+            <div class="col-xs-4 form-group">
+                <label for="idStaniceDelete">Id stanice:</label>
+                <input type="number" id="idStaniceDelete" name="idStaniceDelete" class="form-control" ngModel required>
+                <button style="margin-top: 10px;" type="submit" class="btn btn-primary" [disabled]="!fStanica.valid">Obrisi stanicu</button>
+            </div>
+        </form>
+        <form #fLinija="ngForm" (ngSubmit)="deleteLinija(fLinija)">
+            <div class="col-xs-4 form-group">
+                <label for="idLinijeDelete">Id linije:</label>
+                <input type="number" id="idLinijeDelete" name="idLinijeDelete" class="form-control" ngModel required>
+                <button style="margin-top: 10px;" type="submit" class="btn btn-primary" [disabled]="!fLinija.valid">Obrisi liniju</button>
+            </div>
+        </form>
+    </div>
+</div>
