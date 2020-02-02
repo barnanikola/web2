@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LogInComponent implements OnInit {
 
   user: User;
+  error: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -26,12 +27,13 @@ export class LogInComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.authService.logIn(form.value.email, form.value.password).subscribe(temp => {
+      debugger;
       if (temp === `uspesno`) {
         console.log(temp);
         this.router.navigate(['/account']);
       } else if (temp === 'neuspesno') {
+        this.error = 'Pogresni podaci';
         console.log(temp);
-        this.router.navigate(['/login']);
       }
     });
   }

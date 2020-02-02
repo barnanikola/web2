@@ -23,6 +23,7 @@
                 </div>
             </div>
             <h3>Cena karte je: {{cena}} rsd </h3> <button type="submit" class="btn btn-primary" [disabled]="!kupovinaForm.valid">KupiKartu</button>
+            <label>{{error}}</label>
         </form>
     </div>
     <div class="col-xs-12" *ngIf="user != null && user.VrstaNaloga === 'Admin' && !adminEdit">

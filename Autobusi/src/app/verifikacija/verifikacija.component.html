@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let korisnik of korisniciPrikaz; index as i" (click)="onSellectedUser(korisnik.Email)">
+        <tr *ngFor="let korisnik of korisniciPrikaz; index as i" style="cursor: pointer" (click)="onSellectedUser(korisnik.Email)">
             <td>{{ korisnik.Email }}</td>
             <td>{{ korisnik.Ime }}</td>
             <td>{{ korisnik.Prezime }}</td>
@@ -61,6 +61,7 @@
                 </select>
             </div>
             <button class="btn btn-primary" type="submit" style="margin-top: 10px;">Promeni status</button>
+            <label>{{info}}</label>
         </form>
     </div>
 </div>

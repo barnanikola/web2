@@ -19,9 +19,10 @@ export class VerifikacijaComponent implements OnInit {
   korisnici: User[];
   filter = new FormControl('');
   selektovanKorisnik: User;
-  statusi = ['zahtev se procesira', 'zahtev prihvacen', 'zahtev odbijen'];
+  statusi = ['zahtev se procesira', 'zahtev je prihvacen', 'zahtev je odbijen'];
   verifikacijaForm: FormGroup;
   safeUrl: any;
+  info: string;
 
   change: Observable<User[]>;
   constructor(private authService: AuthService, private sanitizer: DomSanitizer) {
@@ -73,8 +74,9 @@ export class VerifikacijaComponent implements OnInit {
           user.Status = this.verifikacijaForm.value.statusZahteva;
         }
       }
+      this.info = 'Status uspesno promenjen';
     }, err => {
-      console.log(err);
+      this.info = err.error.Message;
     });
   }
 }

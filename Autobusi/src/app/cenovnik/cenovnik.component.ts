@@ -23,6 +23,7 @@ export class CenovnikComponent implements OnInit {
   adminEdit = false;
   editOdl = false;
   cenovnikForm: FormGroup;
+  error: string;
 
   constructor(private ticketService: TicketService, private authService: AuthService) { }
 
@@ -72,9 +73,9 @@ export class CenovnikComponent implements OnInit {
 
   onSubmit() {
     this.ticketService.buyTicket(this.kupovinaForm.value.vrstaKarte, this.cena, this.kupovinaForm.value.tipKorisnika).subscribe(data => {
-      console.log(data);
+      this.error = `${this.kupovinaForm.value.vrstaKarte} karta uspesno kupljena`;
     }, err => {
-      console.log(err);
+      this.error = err.error.Message;
     });
   }
 

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -11,12 +14,10 @@ import { RegisterComponent } from './auth/register/register.component';
 import { LinijeComponent } from './linije/linije.component';
 import { RedVoznjeComponent } from './red-voznje/red-voznje.component';
 import { CenovnikComponent } from './cenovnik/cenovnik.component';
-import { AppRoutingModule } from './app-routing.module';
 import { AccountComponent } from './account/account.component';
 import { KontrolerComponent } from './kontroler/kontroler.component';
 import { VerifikacijaComponent } from './verifikacija/verifikacija.component';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { TokenInterceptor } from './interceptors/token.interceptor';
+
 
 
 @NgModule({

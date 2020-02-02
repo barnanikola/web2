@@ -31,6 +31,11 @@ export class LinijeComponent implements OnInit {
   dodateStanice: number[] = [];
   dodateLinije: number[] = [];
 
+  obrisiStanicuInfo: string;
+  obrisiLinijuInfo: string;
+  linijaInfo: string;
+  stanicaInfo: string;
+
   admin = false;
   tipovi = ['Gradska', 'Prigradska'];
   constructor(private lineService: LineService) { }
@@ -65,7 +70,7 @@ export class LinijeComponent implements OnInit {
         linijeString = linijeString + '<li>' + lin.Broj + '</li>';
       }
       // tslint:disable-next-line: max-line-length
-      const contentString = `<h3>${stanica.Naziv}</h3><p>${stanica.Adresa}</p><ul>${linijeString}</ul>`;
+      const contentString = `<h3>Id:${stanica.Id} ${stanica.Naziv}</h3><p>${stanica.Adresa}</p><ul>${linijeString}</ul>`;
       const marker = new google.maps.Marker({position: stanica.Position, map: this.map});
       const infowindow = new google.maps.InfoWindow({
         content: contentString
@@ -116,18 +121,13 @@ export class LinijeComponent implements OnInit {
     this.linijaForm.patchValue({idStanice: ''});
   }
 
-  onAddLinija() {
-    this.dodateLinije.push(this.stanicaForm.value.brojLinije);
-    this.stanicaForm.patchValue({brojLinije: ''});
-  }
-
   stanicaSubmit() {
     // tslint:disable-next-line: max-line-length
     const stanica = new StanicaBind(this.stanicaForm.value.naziv, this.stanicaForm.value.adresa, {lat: this.stanicaForm.value.lat, lng: this.stanicaForm.value.lng}, this.dodateLinije, this.stanicaForm.value.idStaniceEdit);
     this.lineService.addStanice(stanica).subscribe(data => {
-      console.log(data);
+      this.stanicaInfo = 'Stanica uspesno dodata';
     }, err => {
-      console.log(err);
+      this.stanicaInfo = err.error.Message;
     });
   }
 
@@ -135,29 +135,29 @@ export class LinijeComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const linija = new LinijaBind(this.linijaForm.value.broj, this.dodateStanice, this.linijaForm.value.boja, this.linijaForm.value.tipLinije, this.linijaForm.value.idLinije);
     this.lineService.addLinija(linija).subscribe(data => {
-      console.log(data);
+      this.linijaInfo = 'Linija uspesno dodata';
     }, err => {
-      console.log(err);
+      this.linijaInfo = err.error.Message;
     });
   }
 
   deleteStanica(form: NgForm) {
     this.lineService.deleteStanica(form.value.idStaniceDelete).subscribe(data => {
       form.reset();
-      console.log(data);
+      this.obrisiStanicuInfo = 'Stanica uspesno obrisana';
     }, err => {
       form.reset();
-      console.log(err);
+      this.obrisiStanicuInfo = err.error.Message;
     });
   }
 
   deleteLinija(form: NgForm) {
     this.lineService.deleteLinija(form.value.idLinijeDelete).subscribe(data => {
       form.reset();
-      console.log(data);
+      this.obrisiLinijuInfo = 'Linija uspesno obrisana';
     }, err => {
       form.reset();
-      console.log(err);
+      this.obrisiLinijuInfo = err.error.Message;
     });
   }
 }

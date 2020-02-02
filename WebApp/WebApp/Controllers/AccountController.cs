@@ -180,7 +180,8 @@ namespace WebApp.Controllers
             
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                string err = result.Errors.ToArray()[0];
+                return BadRequest(err);
             }
 
             return Ok();
@@ -394,11 +395,13 @@ namespace WebApp.Controllers
             };
             
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-            UserManager.AddToRole(user.Id, "AppUser");
+            
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                string err = result.Errors.ToArray()[0];
+                return BadRequest(err);
             }
+            UserManager.AddToRole(user.Id, "AppUser");
 
             return Ok();
         }

@@ -13,12 +13,7 @@ export class AuthService {
 
   baseUrl = `http://localhost:52295`;
   userChanged = new BehaviorSubject<User>(null);
-  // tslint:disable-next-line: max-line-length
-  users: User[] = [new User('nikola93b@yahoo.com', 'Nikola', 'Barna', new Date(1993, 11, 18), 'Novosadska 120', 'djak', 'zahtev se procesira', 'Korisnik'),
-                  // tslint:disable-next-line: max-line-length
-                  new User('nikola.barna@protonmail.com', 'Marko', 'Markovic', new Date(1993, 11, 18), 'Novosadska 120', 'obican', 'zahtev prihvacen', 'Kontroler'),
-                // tslint:disable-next-line: max-line-length
-                new User('admin@yahoo.com', 'Admin', 'Adminovic', new Date(1993, 11, 18), 'Novosadska 120', 'obican', 'zahtev prihvacen', 'Admin')];
+
   constructor(private httpClient: HttpClient, private router: Router) { }
 
   addUser(user: User): Observable<any> {
@@ -69,7 +64,7 @@ export class AuthService {
         localStorage.tipKorisnika = 'obican';
         this.userChanged.next(null);
     });
-}
+  }
 
   autoLogIn() {
     if (localStorage.jwt !== 'undefined') {

@@ -21,6 +21,8 @@ export class RedVoznjeComponent implements OnInit {
   polazakForm: FormGroup;
   obrisiPolazakForm: FormGroup;
   admin = false;
+  addInfo: string;
+  deleteInfo: string;
   constructor(private lineService: LineService) { }
 
   ngOnInit() {
@@ -73,17 +75,17 @@ export class RedVoznjeComponent implements OnInit {
   addPolazak() {
     const polazak = new AddPolazak(this.polazakForm.value.id, this.polazakForm.value.danPolazak, this.polazakForm.value.polazak);
     this.lineService.addPolazak(polazak).subscribe(data => {
-      console.log(data);
+      this.addInfo = 'Polazak uspesno dodat';
     }, err => {
-      console.log(err);
+      this.addInfo = err.error.Message;
     });
   }
 
   obisiPolazak() {
     this.lineService.deletePolazak(this.obrisiPolazakForm.value.idPol).subscribe(data => {
-      console.log(data);
+      this.deleteInfo = 'Polazak uspesno obrisan';
     }, err => {
-      console.log(err);
+      this.deleteInfo = err.error.Message;
     });
   }
 }

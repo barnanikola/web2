@@ -25,6 +25,7 @@
             </select>
 
             <button class="btn btn-primary" style="margin-top: 40px; margin-right: 10px;" type="submit" [disabled]="!accountDataForm.valid">Promeni podatke</button>
+            <label>{{dataInfo}}</label>
         </div>
     </form>
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
@@ -38,6 +39,7 @@
             <label for="confirmNewPassword">Ponovite novu sifru:</label>
             <input type="password" id="confirmNewPassword" class="form-control"  name="confirmNewPassword" formControlName="confirmNewPassword">
             <button class="btn btn-primary change-pass-btn" type="submit" [disabled]="!changePasswordForm.valid">Promeni sifru</button>
+            <label>{{passwordInfo}}</label>
         </div>
     </form>
     <form [formGroup]="uploadImageForm" (ngSubmit)="uploadImage()">
@@ -45,12 +47,13 @@
             <label for="url">Dokument</label>
             <input type="file" id="url" class="form-control"  name="url" formControlName="url" (change)="onFileSelected($event)" accept="image/*">
             <div class="image-preview mb-3" *ngIf="previewUrl">
-                <img [src]="previewUrl" height="300" />                 
+                <img [src]="previewUrl" height="300" width="450" />                 
             </div>
             <div class="image-preview mb-3" *ngIf="safeUrl">
-                <img [src]="safeUrl" height="300" />                 
+                <img [src]="safeUrl" height="300" width="450" />                 
             </div>
             <button class="btn btn-primary" type="submit" [disabled]="!uploadImageForm.valid">Posalji sliku</button>
+            <label>{{slikaInfo}}</label>
         </div>
     </form>      
 </div>

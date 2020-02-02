@@ -90,7 +90,7 @@ namespace WebApp.Controllers
             }
             catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             
             List<RedVoznje> redovi = new List<RedVoznje>(db.RedoviVoznje.GetAll());
@@ -125,7 +125,7 @@ namespace WebApp.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             return Ok();
         }
@@ -166,7 +166,7 @@ namespace WebApp.Controllers
                 }
                 catch (Exception e)
                 {
-                    return BadRequest();
+                    return BadRequest(e.Message);
                 }
             }
             else
@@ -178,7 +178,7 @@ namespace WebApp.Controllers
                 }
                 catch (Exception e)
                 {
-                    return BadRequest();
+                    return BadRequest(e.Message);
                 }
             }
             return Ok();
@@ -211,7 +211,10 @@ namespace WebApp.Controllers
             };
             if(model.IdLinije != 0)
             {
-                linija.Id = model.IdLinije;
+                linija = db.Linije.Get(model.IdLinije);
+                linija.Boja = model.Boja;
+                linija.Broj = model.Broj;
+                linija.Stanice = linijaStanice;
                 try
                 {
                     db.Linije.Update(linija);
@@ -219,7 +222,7 @@ namespace WebApp.Controllers
                 }
                 catch(Exception e)
                 {
-                    return BadRequest();
+                    return BadRequest(e.Message);
                 }
             }
             else

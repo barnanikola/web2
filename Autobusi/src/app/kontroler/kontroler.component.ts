@@ -25,6 +25,8 @@ export class KontrolerComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.ticketService.chekValidity(form.value.id).subscribe(data => {
       this.rezultatProvere = data;
+    }, err => {
+      this.rezultatProvere = err.error.Message;
     });
     form.reset();
   }

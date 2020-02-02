@@ -28,6 +28,10 @@ export class AccountComponent implements OnInit {
   previewUrl: any = null;
   imagePath = '';
   safeUrl: any;
+
+  dataInfo: string;
+  passwordInfo: string;
+  slikaInfo: string;
   // tslint:disable-next-line: max-line-length
   constructor(private fb: FormBuilder, private authService: AuthService, private ticketService: TicketService, private sanitizer: DomSanitizer) { }
 
@@ -61,6 +65,9 @@ export class AccountComponent implements OnInit {
     this.authService.changeUserData(email, ime, prezime, datRodj, adresa, tipKorisnika).subscribe(data => {
       this.user = data;
       this.authService.userChanged.next(this.user);
+      this.dataInfo = `Podaci uspesno promenjeni`;
+    }, err => {
+      this.dataInfo = err.error.Message;
     });
   }
 
@@ -68,9 +75,9 @@ export class AccountComponent implements OnInit {
     // tslint:disable-next-line: max-line-length
     const passwords: ChangePasswordModel  = new ChangePasswordModel(this.changePasswordForm.value.passwordGroup.oldPassword, this.changePasswordForm.value.passwordGroup.newPassword, this.changePasswordForm.value.passwordGroup.confirmNewPassword);
     this.authService.changePassword(passwords).subscribe(data => {
-      console.log(data);
+      this.passwordInfo = 'Sifra uspesno promenjena';
     }, err => {
-      console.log(err);
+      this.passwordInfo = err.error.Message;
     });
   }
 
@@ -78,6 +85,9 @@ export class AccountComponent implements OnInit {
     this.authService.uploadImage(this.fileData).subscribe(data => {
       console.log(data);
       console.log('done');
+      this.slikaInfo = 'Slika uspesno poslata';
+    }, err => {
+      this.slikaInfo = err.error.Message;
     });
   }
 

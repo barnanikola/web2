@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   fileData: File = null;
   previewUrl: any = null;
   uploadFilePath: string = null;
+  error: string;
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
@@ -45,7 +46,7 @@ export class RegisterComponent implements OnInit {
     this.authService.addUser(user).subscribe(data => {
       this.router.navigate(['/login']);
     }, err => {
-      console.log(err);
+      this.error = err.error.Message;
     });
   }
 
